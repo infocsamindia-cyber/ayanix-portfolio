@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AYAN ANSARI | Founder & Visionary</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -12,7 +12,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syncopate:wght@400;700&display=swap');
         
         :root { --primary: #915eff; --accent: #00f2ff; --dark: #020202; }
-        body { background-color: var(--dark); color: #e5e7eb; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; width: 100%; }
+        html, body { background-color: var(--dark); color: #e5e7eb; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; width: 100%; position: relative; margin: 0; padding: 0; }
         h1, h2, .brand-font { font-family: 'Syncopate', sans-serif; text-transform: uppercase; letter-spacing: -1px; }
 
         ::-webkit-scrollbar { width: 4px; }
@@ -35,23 +35,22 @@
 
         .vision-item { border-left: 2px solid var(--primary); padding-left: 20px; margin-bottom: 2rem; }
 
-        /* MOBILE MENU OVERLAY */
-        #mobile-menu-overlay {
-            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
-            background: rgba(2, 2, 2, 0.98); backdrop-filter: blur(20px);
-            z-index: 200; transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2rem;
-        }
-        #mobile-menu-overlay.active { right: 0; }
+        /* Mobile Menu Styles */
+        #mobile-menu { display: none; }
+        #mobile-menu.active { display: flex; }
 
-        /* MOBILE OPTIMIZATION */
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
-            h1 { font-size: 3.5rem !important; line-height: 1.1 !important; }
-            .translate-x-32 { transform: translateX(0) !important; margin-top: 3rem; }
-            #scrolling-image-container { transform: none !important; width: 100% !important; padding: 0; }
-            .min-h-screen { min-height: 100vh; height: auto !important; padding-top: 100px; padding-bottom: 60px; }
+            h1 { font-size: 3.2rem !important; line-height: 1 !important; text-align: center; }
+            .lg\:col-span-7 { text-align: center; padding: 0 15px; }
+            .flex.gap-4 { justify-content: center; flex-direction: column; align-items: center; width: 100%; }
+            .translate-x-32 { transform: translateX(0) !important; margin: 2rem auto !important; width: 90% !important; }
+            #scrolling-image-container { transform: none !important; margin-top: 30px !important; }
+            .min-h-screen { height: auto !important; padding-top: 120px; padding-bottom: 60px; overflow: hidden; }
             nav { padding: 20px !important; }
-            .bento-card { padding: 1.5rem !important; }
+            
+            .mobile-menu-icon { display: flex !important; flex-direction: column; gap: 4px; pointer-events: auto; cursor: pointer; }
+            .mobile-menu-icon div { width: 20px; height: 2px; background: white; border-radius: 2px; }
         }
     </style>
 </head>
@@ -59,22 +58,22 @@
     <div class="noise"></div>
     <div id="canvas-container"></div>
 
-    <div id="mobile-menu-overlay">
+    <div id="mobile-menu" class="fixed inset-0 z-[150] bg-black/95 flex-col items-center justify-center gap-8 hidden">
         <button onclick="toggleMenu()" class="absolute top-10 right-10 text-white text-4xl">&times;</button>
         <a href="#about" onclick="toggleMenu()" class="brand-font text-2xl hover:text-cyan-400">Identity</a>
         <a href="#experience" onclick="toggleMenu()" class="brand-font text-2xl hover:text-cyan-400">Legacy</a>
-        <a href="#projects" onclick="toggleMenu()" class="brand-font text-2xl hover:text-cyan-400">Projects</a>
+        <a href="#projects" onclick="toggleMenu()" class="brand-font text-2xl hover:text-cyan-400">My Projects</a>
         <a href="#vision" onclick="toggleMenu()" class="brand-font text-2xl hover:text-cyan-400">Vision</a>
         <a href="#squad" onclick="toggleMenu()" class="brand-font text-2xl hover:text-cyan-400">Command</a>
         <a href="#contact" onclick="toggleMenu()" class="brand-font text-2xl text-purple-400">Contact</a>
     </div>
 
-    <nav class="fixed w-full z-[100] px-8 py-10 flex justify-between items-center">
-        <div class="brand-font text-xl font-bold mix-blend-difference">
+    <nav class="fixed w-full z-[100] px-8 py-10 flex justify-between items-center pointer-events-none">
+        <div class="brand-font text-xl font-bold mix-blend-difference pointer-events-auto">
             AYAN<span class="text-[#915eff]">ANSARI</span>
         </div>
         
-        <div class="hidden md:flex gap-6 glass px-6 py-2 rounded-full border-white/5">
+        <div class="hidden md:flex gap-6 glass px-6 py-2 rounded-full pointer-events-auto border-white/5">
             <a href="#about" class="text-[9px] tracking-[3px] uppercase hover:text-cyan-400 transition">Identity</a>
             <a href="#experience" class="text-[9px] tracking-[3px] uppercase hover:text-cyan-400 transition">Legacy</a>
             <a href="#projects" class="text-[9px] tracking-[3px] uppercase hover:text-cyan-400 transition">My Projects</a>
@@ -83,16 +82,16 @@
             <a href="#contact" class="text-[9px] tracking-[3px] uppercase hover:text-cyan-400 transition font-bold text-purple-400">Contact</a>
         </div>
 
-        <div class="md:hidden glass p-3 rounded-xl border-white/10" onclick="toggleMenu()">
-            <div class="w-6 h-0.5 bg-white mb-1.5"></div>
-            <div class="w-6 h-0.5 bg-white mb-1.5"></div>
-            <div class="w-6 h-0.5 bg-white"></div>
+        <div class="mobile-menu-icon hidden md:hidden pointer-events-auto" onclick="toggleMenu()">
+            <div class="bg-cyan-400"></div>
+            <div class="bg-white"></div>
+            <div class="bg-purple-500"></div>
         </div>
     </nav>
 
-    <section class="min-h-screen flex items-center px-6 lg:px-24 overflow-hidden">
+    <section class="min-h-screen flex items-center px-6 lg:px-24 overflow-hidden pt-20 md:pt-0">
         <div class="max-w-7xl w-full grid lg:grid-cols-12 gap-12 items-center">
-            <div class="lg:col-span-7">
+            <div class="lg:col-span-7 mt-10 md:mt-0">
                 <div class="inline-block glass px-4 py-1 rounded-full mb-6 border-cyan-500/20">
                     <span class="text-[10px] tracking-[4px] uppercase font-bold text-cyan-400">Security Mindset</span>
                 </div>
@@ -103,17 +102,17 @@
                     I am Ayan Ansari. A BCA student, Cyber Security enthusiast, and the visionary building the architecture of <span class="text-white">Ayanix Tech</span>.
                 </p>
                 <div class="flex gap-4">
-                    <div class="glass p-4 rounded-xl border-white/5">
+                    <div class="glass p-4 rounded-xl border-white/5 w-full md:w-auto">
                         <p class="text-[10px] text-gray-500 uppercase tracking-widest">Core HQ Status</p>
-                        <p class="font-bold text-green-400 uppercase">Active Command</p>
+                        <p class="font-bold text-green-400">ACTIVE COMMAND</p>
                     </div>
-                    <div class="glass p-4 rounded-xl border-white/5">
+                    <div class="glass p-4 rounded-xl border-white/5 w-full md:w-auto">
                         <p class="text-[10px] text-gray-500 uppercase tracking-widest">Focus Area</p>
-                        <p class="font-bold uppercase">Strategy</p>
+                        <p class="font-bold">BIG PICTURE STRATEGY</p>
                     </div>
                 </div>
             </div>
-            <div class="lg:col-span-5 relative translate-x-32" id="scrolling-image-container">
+            <div class="lg:col-span-5 relative translate-x-32 mt-32 md:mt-24" id="scrolling-image-container">
                 <div class="security-scan aspect-[4/5] glass rounded-[3rem] border-purple-500/20 overflow-hidden shadow-2xl shadow-purple-500/10">
                     <img src="/img.jpeg" alt="Ayan Ansari" class="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 transition-all duration-1000">
                 </div>
@@ -152,21 +151,21 @@
             <div class="space-y-8">
                 <div class="vision-item">
                     <h3 class="text-xl font-bold text-white mb-2 underline decoration-cyan-500">1 Cr+ Revenue Agency</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Making Ayanix Tech a profitable powerhouse by 2026, dealing with global clients at scale.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">My goal is to make Ayanix Tech a profitable powerhouse by 2026, dealing with global clients at scale.</p>
                 </div>
                 <div class="vision-item">
                     <h3 class="text-xl font-bold text-white mb-2 underline decoration-purple-500">AI-First Infrastructure</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Deploying AI Agents and automation that provide 10x growth for businesses.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">We won't just build websites. We will deploy AI Agents and automation that provide 10x growth for businesses.</p>
                 </div>
             </div>
             <div class="space-y-8">
                 <div class="vision-item">
                     <h3 class="text-xl font-bold text-white mb-2 underline decoration-orange-500">The Elite Squad</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Leading a team where every member (Tech, Creative, HQ) is a master of their field.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Leading an elite team where every member (Tech, Creative, HQ) is a master of their field and achieves massive growth.</p>
                 </div>
                 <div class="vision-item">
                     <h3 class="text-xl font-bold text-white mb-2 underline decoration-green-500">PAN India Presence</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Becoming a dominant name in India's startup ecosystem from local roots.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Starting from local roots to becoming a dominant name in India's startup ecosystem.</p>
                 </div>
             </div>
         </div>
@@ -174,59 +173,121 @@
 
     <section id="about" class="py-32 px-6 lg:px-24">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="md:col-span-2 bento-card glass p-8 md:p-12 rounded-[2.5rem]">
+            <div class="md:col-span-2 bento-card glass p-12 rounded-[2.5rem]">
                 <h2 class="text-2xl font-bold mb-8 text-purple-500">The Identity</h2>
-                <p class="text-lg md:text-xl text-gray-400 leading-relaxed italic">
-                    "I found people from various online spaces, filtered the best, and brought them under one roof."
+                <p class="text-xl text-gray-400 leading-relaxed italic">
+                    "I found people from various online spaces, filtered the best, and brought them under one roof. My job is to show the way."
                 </p>
             </div>
-            <div class="bento-card glass p-8 md:p-12 rounded-[2.5rem] flex flex-col justify-center text-center">
+            <div class="bento-card glass p-12 rounded-[2.5rem] flex flex-col justify-center text-center">
                 <h3 class="text-xs tracking-[5px] uppercase text-gray-500 mb-4">Education</h3>
-                <p class="font-bold text-lg">BCA Student</p>
+                <p class="font-bold text-lg">BCA Regular</p>
+                <p class="text-[10px] text-purple-400">Shivraj College</p>
             </div>
-            <div class="bento-card glass p-8 md:p-12 rounded-[2.5rem] flex flex-col justify-center text-center border-cyan-500/20">
+            <div class="bento-card glass p-12 rounded-[2.5rem] flex flex-col justify-center text-center border-cyan-500/20">
                 <h3 class="text-xs tracking-[5px] uppercase text-gray-500 mb-4">Specialty</h3>
                 <p class="font-bold text-lg">Cyber Security</p>
+                <p class="text-[10px] text-cyan-400">Mindset First</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="py-32 px-6 lg:px-24 bg-[#050505]">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-16 text-center">THE <span class="text-purple-500">LEGACY</span></h2>
+            <div class="space-y-12">
+                <div class="glass p-10 rounded-3xl border-white/5 flex flex-col md:flex-row gap-8 items-start">
+                    <div class="text-3xl font-black opacity-20">01</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">Service Executive (Online Multiservices)</h4>
+                        <p class="text-purple-400 text-sm mb-4">8 Months Experience</p>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Streamlined SBI Banking & KYC systems. Handled high-volume government portals, gaining deep insights into architecture and discipline.
+                        </p>
+                    </div>
+                </div>
+                <div class="glass p-10 rounded-3xl border-white/5 flex flex-col md:flex-row gap-8 items-start">
+                    <div class="text-3xl font-black opacity-20">02</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">NSEIT Certification</h4>
+                        <p class="text-cyan-400 text-sm mb-4">Qualified Professional</p>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Official certification validating technical proficiency and adherence to professional standards.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="squad" class="py-32 px-6 lg:px-24">
         <h2 class="text-4xl font-bold mb-20 text-center brand-font">CORE <span class="text-cyan-500">COMMAND</span></h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="glass p-6 rounded-2xl border-white/5">
-                <p class="text-[8px] text-orange-500 font-bold mb-2 uppercase">MNC Strategy</p>
-                <h4 class="text-sm font-bold">Aman</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glass p-8 rounded-2xl border-white/5 hover:bg-white/5 transition-all group">
+                <p class="text-[10px] text-orange-500 font-bold mb-4 uppercase tracking-widest">MNC Strategy</p>
+                <h4 class="text-lg font-bold">Aman</h4>
+                <p class="text-xs text-gray-500 mt-2">Senior Partner & Corporate Standards</p>
             </div>
-            <div class="glass p-6 rounded-2xl border-white/5">
-                <p class="text-[8px] text-purple-500 font-bold mb-2 uppercase">AI Innovation</p>
-                <h4 class="text-sm font-bold">Vipul</h4>
+            <div class="glass p-8 rounded-2xl border-white/5 hover:bg-white/5 transition-all group">
+                <p class="text-[10px] text-purple-500 font-bold mb-4 uppercase tracking-widest">AI Innovation</p>
+                <h4 class="text-lg font-bold">Vipul</h4>
+                <p class="text-xs text-gray-500 mt-2">R&D Head & Future Tech Solutions</p>
             </div>
-            <div class="glass p-6 rounded-2xl border-white/5">
-                <p class="text-[8px] text-cyan-500 font-bold mb-2 uppercase">Operations</p>
-                <h4 class="text-sm font-bold">Sankalp</h4>
+            <div class="glass p-8 rounded-2xl border-white/5 hover:bg-white/5 transition-all group">
+                <p class="text-[10px] text-cyan-500 font-bold mb-4 uppercase tracking-widest">Operations</p>
+                <h4 class="text-lg font-bold">Sankalp</h4>
+                <p class="text-xs text-gray-500 mt-2">Right Hand & Team Discipline Lead</p>
             </div>
-            <div class="glass p-6 rounded-2xl border-white/5">
-                <p class="text-[8px] text-pink-500 font-bold mb-2 uppercase">Engineering</p>
-                <h4 class="text-sm font-bold">Shreyash</h4>
+            <div class="glass p-8 rounded-2xl border-white/5 hover:bg-white/5 transition-all group">
+                <p class="text-[10px] text-pink-500 font-bold mb-4 uppercase tracking-widest">Engineering</p>
+                <h4 class="text-lg font-bold">Shreyash</h4>
+                <p class="text-xs text-gray-500 mt-2">Head of Development & Architecture</p>
+            </div>
+            <div class="glass p-8 rounded-2xl border-white/5 hover:bg-white/5 transition-all group">
+                <p class="text-[10px] text-red-400 font-bold mb-4 uppercase tracking-widest">Quality Control</p>
+                <h4 class="text-lg font-bold">Gaurav</h4>
+                <p class="text-xs text-gray-500 mt-2">QA, Testing & Finance Lead</p>
+            </div>
+            <div class="glass p-8 rounded-2xl border-white/5 hover:bg-white/5 transition-all group">
+                <p class="text-[10px] text-blue-400 font-bold mb-4 uppercase tracking-widest">Creative Design</p>
+                <h4 class="text-lg font-bold">Sandesh</h4>
+                <p class="text-xs text-gray-500 mt-2">UI/UX Lead & Design Strategist</p>
+            </div>
+            <div class="glass p-8 rounded-2xl border-white/5 hover:bg-white/5 transition-all group">
+                <p class="text-[10px] text-yellow-500 font-bold mb-4 uppercase tracking-widest">Growth</p>
+                <h4 class="text-lg font-bold">Tejas</h4>
+                <p class="text-xs text-gray-500 mt-2">Marketing Lead & Sales Strategy</p>
+            </div>
+            <div class="glass p-8 rounded-2xl border-cyan-500/20 bg-cyan-500/5 transition-all group flex flex-col justify-center items-center text-center">
+                <p class="text-[10px] text-cyan-400 font-bold mb-2 uppercase tracking-widest">Status</p>
+                <h4 class="text-lg font-bold">Scaling Up</h4>
+                <p class="text-xs text-gray-500 mt-2 italic">Building India's Next Big Agency</p>
             </div>
         </div>
     </section>
 
     <footer id="contact" class="py-20 px-6 border-t border-white/5 text-center">
-        <h2 class="text-3xl font-black brand-font mb-6">AYAN <span class="text-purple-500">ANSARI</span></h2>
-        <div class="flex flex-col gap-4 text-[10px] text-gray-400">
-            <a href="mailto:ayanansari996023@gmail.com" class="hover:text-purple-400">ayanansari996023@gmail.com</a>
-            <a href="https://wa.me/919970889890" class="hover:text-green-400">+91 99708 89890</a>
-            <span>MAHARASHTRA, INDIA</span>
+        <h2 class="text-4xl font-black brand-font mb-6">AYAN <span class="text-purple-500">ANSARI</span></h2>
+        <p class="text-[10px] tracking-[5px] text-gray-600 uppercase mb-8">The Architect of Ayanix Tech</p>
+        <div class="flex flex-col md:flex-row justify-center items-center gap-6 text-xs text-gray-400">
+            <span class="hover:text-white transition cursor-default">MAHARASHTRA, INDIA</span>
+            <span class="hidden md:block text-purple-500">|</span>
+            <a href="mailto:ayanansari996023@gmail.com" class="hover:text-purple-400 transition">ayanansari996023@gmail.com</a>
+            <span class="hidden md:block text-purple-500">|</span>
+            <a href="https://wa.me/919970889890" target="_blank" class="hover:text-green-400 transition">+91 99708 89890</a>
         </div>
     </footer>
 
     <script>
-        // Toggle Mobile Menu
+        // Toggle function for Mobile Menu
         function toggleMenu() {
-            document.getElementById('mobile-menu-overlay').classList.toggle('active');
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('active');
         }
+
+        window.onbeforeunload = function () { window.scrollTo(0, 0); };
+        if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
 
         const setupScene = () => {
             const container = document.getElementById('canvas-container');
@@ -257,10 +318,8 @@
             });
         };
         setupScene();
-        
         gsap.registerPlugin(ScrollTrigger);
-        
-        // Disable parallax on mobile to prevent layout shifting
+
         if (window.innerWidth > 768) {
             gsap.to("#scrolling-image-container", {
                 x: -120, y: 50, rotation: -3, 
@@ -270,7 +329,7 @@
 
         gsap.utils.toArray('.glass, .bento-card, .vision-item').forEach(el => {
             gsap.from(el, {
-                opacity: 0, y: 30, duration: 1, ease: "power4.out",
+                opacity: 0, y: 50, duration: 1.2, ease: "power4.out",
                 scrollTrigger: { trigger: el, start: "top 90%" }
             });
         });
