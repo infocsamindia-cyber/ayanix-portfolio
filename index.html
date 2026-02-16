@@ -12,7 +12,17 @@
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syncopate:wght@400;700&display=swap');
         
         :root { --primary: #915eff; --accent: #00f2ff; --dark: #020202; }
-        html, body { background-color: var(--dark); color: #e5e7eb; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; width: 100%; position: relative; margin: 0; padding: 0; }
+        html, body { 
+            background-color: var(--dark); 
+            color: #e5e7eb; 
+            font-family: 'Space Grotesk', sans-serif; 
+            overflow-x: hidden; 
+            width: 100%; 
+            position: relative; 
+            margin: 0; 
+            padding: 0;
+            box-sizing: border-box;
+        }
         h1, h2, .brand-font { font-family: 'Syncopate', sans-serif; text-transform: uppercase; letter-spacing: -1px; }
 
         ::-webkit-scrollbar { width: 4px; }
@@ -38,17 +48,20 @@
         #mobile-menu { display: none; }
         #mobile-menu.active { display: flex; }
 
+        /* Perfected Media Query for Mobile Centering */
         @media (max-width: 768px) {
-            h1 { font-size: 3.2rem !important; line-height: 1 !important; text-align: center; }
-            .lg\:col-span-7 { text-align: center; padding: 0 15px; }
+            h1 { font-size: 2.8rem !important; line-height: 1.1 !important; text-align: center; }
+            .lg\:col-span-7 { text-align: center; padding: 0 20px; display: flex; flex-direction: column; align-items: center; }
             .flex.gap-4 { justify-content: center; flex-direction: column; align-items: center; width: 100%; }
-            .translate-x-32 { transform: translateX(0) !important; margin: 2rem auto !important; width: 90% !important; }
-            #scrolling-image-container { transform: none !important; margin-top: 30px !important; }
-            .min-h-screen { height: auto !important; padding-top: 120px; padding-bottom: 60px; overflow: hidden; }
-            nav { padding: 20px !important; }
+            .translate-x-32 { transform: translateX(0) !important; margin: 2rem auto !important; width: 100% !important; max-width: 320px; }
+            #scrolling-image-container { transform: none !important; margin-top: 40px !important; }
+            .min-h-screen { height: auto !important; padding-top: 100px; padding-bottom: 60px; }
+            nav { padding: 15px !important; }
+            .max-w-7xl { width: 100% !important; }
+            section { overflow-x: hidden; }
             
             .mobile-menu-icon { display: flex !important; flex-direction: column; gap: 4px; pointer-events: auto; cursor: pointer; }
-            .mobile-menu-icon div { width: 20px; height: 2px; background: white; border-radius: 2px; }
+            .mobile-menu-icon div { width: 22px; height: 2px; background: white; border-radius: 2px; }
         }
     </style>
 </head>
@@ -88,7 +101,7 @@
     </nav>
 
     <section class="min-h-screen flex items-center px-6 lg:px-24 overflow-hidden pt-20 md:pt-0">
-        <div class="max-w-7xl w-full grid lg:grid-cols-12 gap-12 items-center">
+        <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-12 items-center">
             <div class="lg:col-span-7 mt-10 md:mt-0">
                 <div class="inline-block glass px-4 py-1 rounded-full mb-6 border-cyan-500/20">
                     <span class="text-[10px] tracking-[4px] uppercase font-bold text-cyan-400">Visionary Entrepreneur</span>
@@ -100,21 +113,21 @@
                     Founder & CEO at <span class="text-white">Ayanix Tech</span>. Leading 17+ elite minds to redefine digital innovation and strategic tech architecture.
                 </p>
                 <div class="flex gap-4">
-                    <div class="glass p-4 rounded-xl border-white/5 w-full md:w-auto">
+                    <div class="glass p-4 rounded-xl border-white/5 w-full md:w-auto text-center">
                         <p class="text-[10px] text-gray-500 uppercase tracking-widest">Global Status</p>
                         <p class="font-bold text-green-400">CEO @ AYANIX TECH</p>
                     </div>
-                    <div class="glass p-4 rounded-xl border-white/5 w-full md:w-auto">
+                    <div class="glass p-4 rounded-xl border-white/5 w-full md:w-auto text-center">
                         <p class="text-[10px] text-gray-500 uppercase tracking-widest">Focus</p>
                         <p class="font-bold">STRATEGIC DISRUPTION</p>
                     </div>
                 </div>
             </div>
-            <div class="lg:col-span-5 relative translate-x-32 mt-32 md:mt-24" id="scrolling-image-container">
-                <div class="security-scan aspect-[4/5] glass rounded-[3rem] border-purple-500/20 overflow-hidden shadow-2xl shadow-purple-500/10">
-                    <img src="/img.jpeg" alt="Ayan Ansari" class="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 transition-all duration-1000">
+            <div class="lg:col-span-5 relative mt-12 md:mt-24 flex justify-center" id="scrolling-image-container">
+                <div class="security-scan aspect-[4/5] glass rounded-[3rem] border-purple-500/20 overflow-hidden shadow-2xl shadow-purple-500/10 w-full max-w-[320px]">
+                    <img src="img.jpeg" alt="Ayan Ansari" class="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 transition-all duration-1000">
                 </div>
-                <div class="absolute -bottom-10 -right-10 glass p-8 rounded-3xl border-white/5 hidden md:block">
+                <div class="absolute -bottom-6 -right-6 glass p-6 rounded-3xl border-white/5 hidden md:block">
                     <p class="text-3xl font-black stat-glow tracking-tighter">LEADING</p>
                     <p class="text-[10px] tracking-[4px] uppercase text-gray-500 font-bold">17+ ELITE SQUAD</p>
                 </div>
@@ -124,7 +137,7 @@
 
     <section id="about" class="py-32 px-6 lg:px-24">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="md:col-span-2 bento-card glass p-12 rounded-[2.5rem]">
+            <div class="md:col-span-2 bento-card glass p-8 md:p-12 rounded-[2.5rem]">
                 <h2 class="text-2xl font-bold mb-8 text-purple-500">The Summary</h2>
                 <p class="text-lg text-gray-400 leading-relaxed">
                     Main ek visionary entrepreneur hoon jo digital innovation ki boundary push karne mein believe karta hoon. Mera focus sirf codes par nahi, balki industry standards ko redefine karne par hai.
@@ -193,24 +206,6 @@
         </div>
     </section>
 
-    <section id="experience" class="py-32 px-6 lg:px-24 bg-[#050505]">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl font-bold mb-16 text-center">THE <span class="text-purple-500">LEGACY</span></h2>
-            <div class="space-y-12">
-                <div class="glass p-10 rounded-3xl border-white/5 flex flex-col md:flex-row gap-8 items-start">
-                    <div class="text-3xl font-black opacity-20">01</div>
-                    <div>
-                        <h4 class="text-xl font-bold mb-2">CEO & Founder (Ayanix Tech)</h4>
-                        <p class="text-purple-400 text-sm mb-4">Strategic Leadership</p>
-                        <p class="text-gray-400 text-sm leading-relaxed">
-                            Overseeing system architecture, team leadership, and futuristic design strategies to drive massive business growth.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="squad" class="py-32 px-6 lg:px-24">
         <h2 class="text-4xl font-bold mb-20 text-center brand-font">CORE <span class="text-cyan-500">COMMAND</span></h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -225,35 +220,39 @@
                 <p class="text-xs text-gray-500 mt-2">R&D Head & Future Tech Solutions</p>
             </div>
             <div class="glass p-8 rounded-2xl border-white/5 hover:bg-white/5 transition-all group">
-                <p class="text-[10px] text-cyan-500 font-bold mb-4 uppercase tracking-widest">Operations</p>
+                <p class="text-[10px] text-cyan-400 font-bold mb-4 uppercase tracking-widest">Operations</p>
                 <h4 class="text-lg font-bold">Sankalp</h4>
-                <p class="text-xs text-gray-500 mt-2">Right Hand & Team Discipline Lead</p>
+                <p class="text-xs text-gray-500 mt-2">Tech Ops Lead & Right Hand</p>
             </div>
             <div class="glass p-8 rounded-2xl border-white/5 hover:bg-white/5 transition-all group">
-                <p class="text-[10px] text-pink-500 font-bold mb-4 uppercase tracking-widest">Engineering</p>
+                <p class="text-[10px] text-pink-500 font-bold mb-4 uppercase tracking-widest">Creative Core</p>
+                <h4 class="text-lg font-bold">Shareque</h4>
+                <p class="text-xs text-gray-500 mt-2">Creative Lead & Strategic Content</p>
+            </div>
+            <div class="glass p-8 rounded-2xl border-white/5 hover:bg-white/5 transition-all group">
+                <p class="text-[10px] text-red-400 font-bold mb-4 uppercase tracking-widest">Engineering</p>
                 <h4 class="text-lg font-bold">Shreyash</h4>
-                <p class="text-xs text-gray-500 mt-2">Head of Development & Architecture</p>
+                <p class="text-xs text-gray-500 mt-2">Tech Developer & Architecture</p>
             </div>
             <div class="glass p-8 rounded-2xl border-white/5 hover:bg-white/5 transition-all group">
-                <p class="text-[10px] text-red-400 font-bold mb-4 uppercase tracking-widest">Quality Control</p>
+                <p class="text-[10px] text-yellow-500 font-bold mb-4 uppercase tracking-widest">Quality Control</p>
                 <h4 class="text-lg font-bold">Gaurav</h4>
-                <p class="text-xs text-gray-500 mt-2">QA, Testing & Finance Lead</p>
+                <p class="text-xs text-gray-500 mt-2">Tech Creative & Quality Assurance</p>
             </div>
             <div class="glass p-8 rounded-2xl border-white/5 hover:bg-white/5 transition-all group">
-                <p class="text-[10px] text-blue-400 font-bold mb-4 uppercase tracking-widest">Creative Design</p>
+                <p class="text-[10px] text-blue-400 font-bold mb-4 uppercase tracking-widest">Design Strategy</p>
                 <h4 class="text-lg font-bold">Sandesh</h4>
                 <p class="text-xs text-gray-500 mt-2">UI/UX Lead & Design Strategist</p>
             </div>
             <div class="glass p-8 rounded-2xl border-white/5 hover:bg-white/5 transition-all group">
-                <p class="text-[10px] text-yellow-500 font-bold mb-4 uppercase tracking-widest">Growth</p>
-                <h4 class="text-lg font-bold">Tejas</h4>
-                <p class="text-xs text-gray-500 mt-2">Marketing Lead & Sales Strategy</p>
+                <p class="text-[10px] text-green-500 font-bold mb-4 uppercase tracking-widest">Market Growth</p>
+                <h4 class="text-lg font-bold">Tejas Patil</h4>
+                <p class="text-xs text-gray-500 mt-2">Sales Strategy & Growth Lead</p>
             </div>
-            <div class="glass p-8 rounded-2xl border-cyan-500/20 bg-cyan-500/5 transition-all group flex flex-col justify-center items-center text-center">
-                <p class="text-[10px] text-cyan-400 font-bold mb-2 uppercase tracking-widest">Status</p>
-                <h4 class="text-lg font-bold">Ayanix Squad</h4>
-                <p class="text-xs text-gray-500 mt-2 italic">17+ Members & Growing</p>
-            </div>
+        </div>
+        <div class="mt-8 glass p-6 rounded-2xl border-cyan-500/20 text-center max-w-sm mx-auto">
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Squad Strength</p>
+            <h4 class="text-xl font-bold text-white">17+ ELITE MEMBERS</h4>
         </div>
     </section>
 
@@ -279,6 +278,7 @@
         window.onbeforeunload = function () { window.scrollTo(0, 0); };
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
 
+        // Perfected Three.js Background
         const setupScene = () => {
             const container = document.getElementById('canvas-container');
             const scene = new THREE.Scene();
@@ -286,8 +286,33 @@
             const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             container.appendChild(renderer.domElement);
+            
             const geometry = new THREE.SphereGeometry(15, 32, 32);
             const wireframe = new THREE.WireframeGeometry(geometry);
             const line = new THREE.LineSegments(wireframe);
             line.material.color.setHex(0x915eff);
-            line.material.
+            line.material.transparent = true;
+            line.material.opacity = 0.2;
+            scene.add(line);
+            
+            camera.position.z = 30;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                line.rotation.x += 0.001;
+                line.rotation.y += 0.001;
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+        setupScene();
+    </script>
+</body>
+</html>
+
